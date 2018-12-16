@@ -1,0 +1,16 @@
+create table tblTest
+(
+id int identity(1,1),
+name varchar(100),
+email varchar(100)
+)
+
+create proc InsertTest
+@name varchar(100),
+@email varchar(100)
+as
+begin
+insert into tblTest (name,email) values(@name,@email)
+end
+
+select * from tblTest
