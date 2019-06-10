@@ -13,4 +13,17 @@ begin
 insert into tblTest (name,email) values(@name,@email)
 end
 
+create proc GetAllData  
+as  
+begin  
+select * from tblTest  
+end
+
 select * from tblTest
+
+create proc GetDataForEdit 
+@id int
+as
+begin
+select * from tblTest where id=@id
+end

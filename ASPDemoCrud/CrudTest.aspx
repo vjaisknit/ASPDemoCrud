@@ -23,7 +23,34 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><asp:Button  Text="Save" ID="btnSave" runat="server" OnClick="btnSave_Click" /></td>
+                    <td colspan="2"><asp:Button  Text="Save" ID="btnSave" runat="server"  /></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:GridView ID="grdDisplay"   AutoGenerateColumns="false" runat="server" OnRowCommand="grdDisplay_RowCommand" >
+                           <Columns>
+
+                               <asp:TemplateField HeaderText="Name">
+                                   <ItemTemplate>
+                                       <%#Eval("name") %>
+                                   </ItemTemplate>
+                               </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Email">
+                                   <ItemTemplate>
+                                       <%#Eval("Email") %>
+                                   </ItemTemplate>
+                               </asp:TemplateField>
+
+                               <asp:TemplateField>
+                                   <ItemTemplate>
+                                       <asp:LinkButton CommandArgument='<%#Eval("id") %>' 
+                                           ID="lnkEdit" Text="Edit" runat="server"></asp:LinkButton>
+                                   </ItemTemplate>
+                               </asp:TemplateField>
+
+                           </Columns>
+                        </asp:GridView>
+                    </td>
                 </tr>
             </table>
         </div>

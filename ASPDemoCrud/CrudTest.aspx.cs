@@ -16,6 +16,10 @@ namespace ASPDemoCrud
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                fillGrid();
+            }
              
         }
 
@@ -28,6 +32,33 @@ namespace ASPDemoCrud
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
+            fillGrid();
+        }
+
+        private void fillGrid()
+        {
+            SqlCommand cmd = new SqlCommand("GetAllData",con);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            grdDisplay.DataSource = ds;
+            grdDisplay.DataBind();
+
+        }
+
+        protected void grdDisplay_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int idInDb=Convert.ToInt32(e.CommandArgument);
+            SqlCommand cmd = new SqlCommand("GetDataForEdit", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", idInDb);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            txtName.Text=  ds.Tables[0].Rows[0]["name"].ToString();
+            txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+
+            btnSave.Text = "Update";
         }
     }
 }
